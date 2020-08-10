@@ -2,7 +2,7 @@
   "name": "aws-cdk-infra",
   "version": "0.1.0",
   "bin": {
-    "aws-cdk-infra": "bin/aws-cdk-infra.js"
+    "aws-cdk-infra": "bin/setup-aws-infra.js"
   },
   "scripts": {
     "build": "tsc",
@@ -12,16 +12,23 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.36.1",
+    "@aws-cdk/core": "^1.38.0",
     "@types/jest": "^25.2.1",
     "@types/node": "10.17.5",
+    "aws-cdk": "^1.38.0",
     "jest": "^25.5.0",
     "ts-jest": "^25.3.1",
-    "aws-cdk": "1.36.1",
     "ts-node": "^8.1.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "uuidv4": "^6.0.8"
   },
   "dependencies": {
-    "@aws-cdk/core": "1.36.1",
+    "@aws-cdk/aws-apigateway": "^1.38.0",
+    "@aws-cdk/aws-cognito": "^1.38.0",
+    "@aws-cdk/aws-dynamodb": "^1.38.0",
+    "@aws-cdk/aws-lambda": "^1.38.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.38.0",
+    "@aws-cdk/core": "^1.38.0",
     "source-map-support": "^0.5.16"
   }
 }

@@ -1,0 +1,2915 @@
+Resources:
+  defaultServiceRole39A05D06:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/default/ServiceRole/Resource
+  defaultC974F9E3:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3Bucket27632CE3
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3VersionKey9CE77F40
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3VersionKey9CE77F40
+      Handler: default.handler
+      Role:
+        Fn::GetAtt:
+          - defaultServiceRole39A05D06
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - defaultServiceRole39A05D06
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/default/Resource
+      aws:asset:path: asset.07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40
+      aws:asset:property: Code
+  helloworldServiceRole3FFFDE20:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/hello-world/ServiceRole/Resource
+  helloworldA481721C:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3Bucket27632CE3
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3VersionKey9CE77F40
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3VersionKey9CE77F40
+      Handler: hello-world.handler
+      Role:
+        Fn::GetAtt:
+          - helloworldServiceRole3FFFDE20
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - helloworldServiceRole3FFFDE20
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/hello-world/Resource
+      aws:asset:path: asset.07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40
+      aws:asset:property: Code
+  readallarticlesServiceRole04196B41:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-articles/ServiceRole/Resource
+  readallarticlesServiceRoleDefaultPolicy9936EFCB:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - articlesdb1941E623
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: readallarticlesServiceRoleDefaultPolicy9936EFCB
+      Roles:
+        - Ref: readallarticlesServiceRole04196B41
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-articles/ServiceRole/DefaultPolicy/Resource
+  readallarticles36AA7B4E:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3Bucket7D8CFB7B
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+      Handler: read-all-articles.handler
+      Role:
+        Fn::GetAtt:
+          - readallarticlesServiceRole04196B41
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - readallarticlesServiceRoleDefaultPolicy9936EFCB
+      - readallarticlesServiceRole04196B41
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-articles/Resource
+      aws:asset:path: asset.41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e
+      aws:asset:property: Code
+  readallratingsServiceRoleED38528A:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-ratings/ServiceRole/Resource
+  readallratingsServiceRoleDefaultPolicy8FB4E2CE:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - ratingsdb3A7EFF63
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: readallratingsServiceRoleDefaultPolicy8FB4E2CE
+      Roles:
+        - Ref: readallratingsServiceRoleED38528A
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-ratings/ServiceRole/DefaultPolicy/Resource
+  readallratings84B4FDEF:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3BucketACE1C94D
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+      Handler: read-all-ratings.handler
+      Role:
+        Fn::GetAtt:
+          - readallratingsServiceRoleED38528A
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - readallratingsServiceRoleDefaultPolicy8FB4E2CE
+      - readallratingsServiceRoleED38528A
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-ratings/Resource
+      aws:asset:path: asset.1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c
+      aws:asset:property: Code
+  readallaccumulatedServiceRoleBEBAF9C3:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-accumulated/ServiceRole/Resource
+  readallaccumulatedServiceRoleDefaultPolicyA4DED706:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - accumulateddb0A63BC4C
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: readallaccumulatedServiceRoleDefaultPolicyA4DED706
+      Roles:
+        - Ref: readallaccumulatedServiceRoleBEBAF9C3
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-accumulated/ServiceRole/DefaultPolicy/Resource
+  readallaccumulatedD73FAD36:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3Bucket735A80F4
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+      Handler: read-all-accumulated.handler
+      Role:
+        Fn::GetAtt:
+          - readallaccumulatedServiceRoleBEBAF9C3
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - readallaccumulatedServiceRoleDefaultPolicyA4DED706
+      - readallaccumulatedServiceRoleBEBAF9C3
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-all-accumulated/Resource
+      aws:asset:path: asset.c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d
+      aws:asset:property: Code
+  readonearticleServiceRole012BD0A2:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-article/ServiceRole/Resource
+  readonearticleServiceRoleDefaultPolicy815EE6D2:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - articlesdb1941E623
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: readonearticleServiceRoleDefaultPolicy815EE6D2
+      Roles:
+        - Ref: readonearticleServiceRole012BD0A2
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-article/ServiceRole/DefaultPolicy/Resource
+  readonearticle34AC0B1E:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3Bucket7D8CFB7B
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+      Handler: read-one-articles.handler
+      Role:
+        Fn::GetAtt:
+          - readonearticleServiceRole012BD0A2
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - readonearticleServiceRoleDefaultPolicy815EE6D2
+      - readonearticleServiceRole012BD0A2
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-article/Resource
+      aws:asset:path: asset.41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e
+      aws:asset:property: Code
+  readoneratingServiceRole508460FF:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-rating/ServiceRole/Resource
+  readoneratingServiceRoleDefaultPolicy72A33974:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - ratingsdb3A7EFF63
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: readoneratingServiceRoleDefaultPolicy72A33974
+      Roles:
+        - Ref: readoneratingServiceRole508460FF
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-rating/ServiceRole/DefaultPolicy/Resource
+  readonerating2153943B:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3BucketACE1C94D
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+      Handler: read-one-ratings.handler
+      Role:
+        Fn::GetAtt:
+          - readoneratingServiceRole508460FF
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - readoneratingServiceRoleDefaultPolicy72A33974
+      - readoneratingServiceRole508460FF
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-rating/Resource
+      aws:asset:path: asset.1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c
+      aws:asset:property: Code
+  readoneaccumulatedServiceRoleB1F83273:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-accumulated/ServiceRole/Resource
+  readoneaccumulatedServiceRoleDefaultPolicy091FBED7:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - accumulateddb0A63BC4C
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: readoneaccumulatedServiceRoleDefaultPolicy091FBED7
+      Roles:
+        - Ref: readoneaccumulatedServiceRoleB1F83273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-accumulated/ServiceRole/DefaultPolicy/Resource
+  readoneaccumulated3ACFDEC3:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3Bucket735A80F4
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+      Handler: read-one-accumulated.handler
+      Role:
+        Fn::GetAtt:
+          - readoneaccumulatedServiceRoleB1F83273
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - readoneaccumulatedServiceRoleDefaultPolicy091FBED7
+      - readoneaccumulatedServiceRoleB1F83273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/read-one-accumulated/Resource
+      aws:asset:path: asset.c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d
+      aws:asset:property: Code
+  createarticleServiceRole26F30266:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-article/ServiceRole/Resource
+  createarticleServiceRoleDefaultPolicy6D437242:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - articlesdb1941E623
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: createarticleServiceRoleDefaultPolicy6D437242
+      Roles:
+        - Ref: createarticleServiceRole26F30266
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-article/ServiceRole/DefaultPolicy/Resource
+  createarticle257C12FD:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3Bucket7D8CFB7B
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+      Handler: create-article.handler
+      Role:
+        Fn::GetAtt:
+          - createarticleServiceRole26F30266
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - createarticleServiceRoleDefaultPolicy6D437242
+      - createarticleServiceRole26F30266
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-article/Resource
+      aws:asset:path: asset.41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e
+      aws:asset:property: Code
+  createratingServiceRole6E3F3FE6:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-rating/ServiceRole/Resource
+  createratingServiceRoleDefaultPolicy54A6EBBE:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - ratingsdb3A7EFF63
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: createratingServiceRoleDefaultPolicy54A6EBBE
+      Roles:
+        - Ref: createratingServiceRole6E3F3FE6
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-rating/ServiceRole/DefaultPolicy/Resource
+  createrating59FD54B9:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3BucketACE1C94D
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+      Handler: create-rating.handler
+      Role:
+        Fn::GetAtt:
+          - createratingServiceRole6E3F3FE6
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - createratingServiceRoleDefaultPolicy54A6EBBE
+      - createratingServiceRole6E3F3FE6
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-rating/Resource
+      aws:asset:path: asset.1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c
+      aws:asset:property: Code
+  createaccumulatedServiceRoleE976BE72:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-accumulated/ServiceRole/Resource
+  createaccumulatedServiceRoleDefaultPolicy1034BE64:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - accumulateddb0A63BC4C
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: createaccumulatedServiceRoleDefaultPolicy1034BE64
+      Roles:
+        - Ref: createaccumulatedServiceRoleE976BE72
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-accumulated/ServiceRole/DefaultPolicy/Resource
+  createaccumulatedA3F92A60:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3Bucket735A80F4
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+      Handler: create-accumulated.handler
+      Role:
+        Fn::GetAtt:
+          - createaccumulatedServiceRoleE976BE72
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - createaccumulatedServiceRoleDefaultPolicy1034BE64
+      - createaccumulatedServiceRoleE976BE72
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/create-accumulated/Resource
+      aws:asset:path: asset.c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d
+      aws:asset:property: Code
+  updatearticleServiceRoleCB11F53F:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-article/ServiceRole/Resource
+  updatearticleServiceRoleDefaultPolicy3AEB0017:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - articlesdb1941E623
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: updatearticleServiceRoleDefaultPolicy3AEB0017
+      Roles:
+        - Ref: updatearticleServiceRoleCB11F53F
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-article/ServiceRole/DefaultPolicy/Resource
+  updatearticle9C88C52D:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3Bucket7D8CFB7B
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+      Handler: update-article.handler
+      Role:
+        Fn::GetAtt:
+          - updatearticleServiceRoleCB11F53F
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - updatearticleServiceRoleDefaultPolicy3AEB0017
+      - updatearticleServiceRoleCB11F53F
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-article/Resource
+      aws:asset:path: asset.41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e
+      aws:asset:property: Code
+  updateratingServiceRoleDB3EADAF:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-rating/ServiceRole/Resource
+  updateratingServiceRoleDefaultPolicy42E7AA01:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - ratingsdb3A7EFF63
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: updateratingServiceRoleDefaultPolicy42E7AA01
+      Roles:
+        - Ref: updateratingServiceRoleDB3EADAF
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-rating/ServiceRole/DefaultPolicy/Resource
+  updaterating9B20EA4D:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3BucketACE1C94D
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+      Handler: update-rating.handler
+      Role:
+        Fn::GetAtt:
+          - updateratingServiceRoleDB3EADAF
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - updateratingServiceRoleDefaultPolicy42E7AA01
+      - updateratingServiceRoleDB3EADAF
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-rating/Resource
+      aws:asset:path: asset.1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c
+      aws:asset:property: Code
+  updateaccumulatedServiceRoleC5297DFA:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-accumulated/ServiceRole/Resource
+  updateaccumulatedServiceRoleDefaultPolicy3DB8B68E:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - accumulateddb0A63BC4C
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: updateaccumulatedServiceRoleDefaultPolicy3DB8B68E
+      Roles:
+        - Ref: updateaccumulatedServiceRoleC5297DFA
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-accumulated/ServiceRole/DefaultPolicy/Resource
+  updateaccumulated546EE512:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3Bucket735A80F4
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+      Handler: update-accumulated.handler
+      Role:
+        Fn::GetAtt:
+          - updateaccumulatedServiceRoleC5297DFA
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - updateaccumulatedServiceRoleDefaultPolicy3DB8B68E
+      - updateaccumulatedServiceRoleC5297DFA
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/update-accumulated/Resource
+      aws:asset:path: asset.c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d
+      aws:asset:property: Code
+  deletearticleServiceRole0473795E:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-article/ServiceRole/Resource
+  deletearticleServiceRoleDefaultPolicy83E5AC0B:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - articlesdb1941E623
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: deletearticleServiceRoleDefaultPolicy83E5AC0B
+      Roles:
+        - Ref: deletearticleServiceRole0473795E
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-article/ServiceRole/DefaultPolicy/Resource
+  deletearticle3D4EE9C1:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3Bucket7D8CFB7B
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1
+      Handler: delete-article.handler
+      Role:
+        Fn::GetAtt:
+          - deletearticleServiceRole0473795E
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - deletearticleServiceRoleDefaultPolicy83E5AC0B
+      - deletearticleServiceRole0473795E
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-article/Resource
+      aws:asset:path: asset.41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e
+      aws:asset:property: Code
+  deleteratingServiceRole81E89FE2:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-rating/ServiceRole/Resource
+  deleteratingServiceRoleDefaultPolicy731B0D4C:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - ratingsdb3A7EFF63
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: deleteratingServiceRoleDefaultPolicy731B0D4C
+      Roles:
+        - Ref: deleteratingServiceRole81E89FE2
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-rating/ServiceRole/DefaultPolicy/Resource
+  deleterating1296CBDB:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3BucketACE1C94D
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51
+      Handler: delete-rating.handler
+      Role:
+        Fn::GetAtt:
+          - deleteratingServiceRole81E89FE2
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - deleteratingServiceRoleDefaultPolicy731B0D4C
+      - deleteratingServiceRole81E89FE2
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-rating/Resource
+      aws:asset:path: asset.1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c
+      aws:asset:property: Code
+  deleteaccumulatedServiceRoleF13703CE:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-accumulated/ServiceRole/Resource
+  deleteaccumulatedServiceRoleDefaultPolicyFF837E83:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - accumulateddb0A63BC4C
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: deleteaccumulatedServiceRoleDefaultPolicyFF837E83
+      Roles:
+        - Ref: deleteaccumulatedServiceRoleF13703CE
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-accumulated/ServiceRole/DefaultPolicy/Resource
+  deleteaccumulatedEC02E02D:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3Bucket735A80F4
+        S3Key:
+          Fn::Join:
+            - ""
+            - - Fn::Select:
+                  - 0
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+              - Fn::Select:
+                  - 1
+                  - Fn::Split:
+                      - "||"
+                      - Ref: AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039
+      Handler: delete-accumulated.handler
+      Role:
+        Fn::GetAtt:
+          - deleteaccumulatedServiceRoleF13703CE
+          - Arn
+      Runtime: nodejs12.x
+    DependsOn:
+      - deleteaccumulatedServiceRoleDefaultPolicyFF837E83
+      - deleteaccumulatedServiceRoleF13703CE
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/delete-accumulated/Resource
+      aws:asset:path: asset.c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d
+      aws:asset:property: Code
+  articlesdb1941E623:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: article_id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: article_id
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      TableName: articles-db
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/articles-db/Resource
+  ratingsdb3A7EFF63:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: rating_id
+          KeyType: HASH
+        - AttributeName: article_id
+          KeyType: RANGE
+      AttributeDefinitions:
+        - AttributeName: rating_id
+          AttributeType: S
+        - AttributeName: article_id
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      TableName: ratings-db
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/ratings-db/Resource
+  accumulateddb0A63BC4C:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: article_id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: article_id
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      TableName: accumulated-db
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/accumulated-db/Resource
+  fhcampusmasterapigateway93F4E273:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: fh-campus-master-api-gateway
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Resource
+  fhcampusmasterapigatewayDeploymentEBEC72A815435bf0f193184d6b92d138dda8aabb:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      Description: Automatically created by the RestApi construct
+    DependsOn:
+      - fhcampusmasterapigatewayapiB158C7C1
+      - fhcampusmasterapigatewayapiv1accumulatedidDELETEEB5BC1E4
+      - fhcampusmasterapigatewayapiv1accumulatedidGET96DE7D8F
+      - fhcampusmasterapigatewayapiv1accumulatedidPATCHCF57FC38
+      - fhcampusmasterapigatewayapiv1accumulatedidPUT25CA68E7
+      - fhcampusmasterapigatewayapiv1accumulatedid58774540
+      - fhcampusmasterapigatewayapiv1accumulatedGET457D394F
+      - fhcampusmasterapigatewayapiv1accumulatedPOST6B99AB1C
+      - fhcampusmasterapigatewayapiv1accumulatedF68F4C36
+      - fhcampusmasterapigatewayapiv1articlesidDELETE317929E4
+      - fhcampusmasterapigatewayapiv1articlesidGET0FF96F7C
+      - fhcampusmasterapigatewayapiv1articlesidPATCH91FD90F2
+      - fhcampusmasterapigatewayapiv1articlesidPUTFAFF7C42
+      - fhcampusmasterapigatewayapiv1articlesid5ED6697D
+      - fhcampusmasterapigatewayapiv1articlesGET1090C41D
+      - fhcampusmasterapigatewayapiv1articlesPOST39F43864
+      - fhcampusmasterapigatewayapiv1articles1B3BC8D3
+      - fhcampusmasterapigatewayapiv1ratingsidarticleidDELETEECA3152A
+      - fhcampusmasterapigatewayapiv1ratingsidarticleidGET2B883409
+      - fhcampusmasterapigatewayapiv1ratingsidarticleidPATCHFCF59352
+      - fhcampusmasterapigatewayapiv1ratingsidarticleidPUT3F081D37
+      - fhcampusmasterapigatewayapiv1ratingsidarticleid533B5F1A
+      - fhcampusmasterapigatewayapiv1ratingsid4A7F2C19
+      - fhcampusmasterapigatewayapiv1ratingsGET1F3EA387
+      - fhcampusmasterapigatewayapiv1ratingsPOSTC7BDD908
+      - fhcampusmasterapigatewayapiv1ratings1E2D366B
+      - fhcampusmasterapigatewayapiv122AABBA4
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Deployment/Resource
+  fhcampusmasterapigatewayDeploymentStageprod3C8E4B66:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      DeploymentId:
+        Ref: fhcampusmasterapigatewayDeploymentEBEC72A815435bf0f193184d6b92d138dda8aabb
+      StageName: prod
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/DeploymentStage.prod/Resource
+  fhcampusmasterapigatewayCloudWatchRoleC137D1E4:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/CloudWatchRole/Resource
+  fhcampusmasterapigatewayAccount0F66FA63:
+    Type: AWS::ApiGateway::Account
+    Properties:
+      CloudWatchRoleArn:
+        Fn::GetAtt:
+          - fhcampusmasterapigatewayCloudWatchRoleC137D1E4
+          - Arn
+    DependsOn:
+      - fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Account
+  fhcampusmasterapigatewayapiB158C7C1:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - fhcampusmasterapigateway93F4E273
+          - RootResourceId
+      PathPart: api
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/Resource
+  fhcampusmasterapigatewayapiv122AABBA4:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiB158C7C1
+      PathPart: v1
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/Resource
+  fhcampusmasterapigatewayapiv1articles1B3BC8D3:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiv122AABBA4
+      PathPart: articles
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/Resource
+  fhcampusmasterapigatewayapiv1articlesPOSTApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4POSTapiv1articlesB08BE932:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - createarticle257C12FD
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /POST/api/v1/articles
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/POST/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.POST..api.v1.articles
+  fhcampusmasterapigatewayapiv1articlesPOSTApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4POSTapiv1articles6BC9F23B:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - createarticle257C12FD
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/POST/api/v1/articles
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/POST/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.POST..api.v1.articles
+  fhcampusmasterapigatewayapiv1articlesPOST39F43864:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: POST
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1articles1B3BC8D3
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - createarticle257C12FD
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/POST/Resource
+  fhcampusmasterapigatewayapiv1articlesGETApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1articles39D67770:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readallarticles36AA7B4E
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /GET/api/v1/articles
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/GET/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.articles
+  fhcampusmasterapigatewayapiv1articlesGETApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1articles956E314B:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readallarticles36AA7B4E
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/GET/api/v1/articles
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/GET/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.articles
+  fhcampusmasterapigatewayapiv1articlesGET1090C41D:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1articles1B3BC8D3
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - readallarticles36AA7B4E
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/GET/Resource
+  fhcampusmasterapigatewayapiv1articlesid5ED6697D:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiv1articles1B3BC8D3
+      PathPart: "{id}"
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/Resource
+  fhcampusmasterapigatewayapiv1articlesidGETApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1articlesid69FD19CA:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readonearticle34AC0B1E
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /GET/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/GET/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidGETApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1articlesid09987EB9:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readonearticle34AC0B1E
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/GET/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/GET/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidGET0FF96F7C:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1articlesid5ED6697D
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - readonearticle34AC0B1E
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/GET/Resource
+  fhcampusmasterapigatewayapiv1articlesidPUTApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PUTapiv1articlesidEFF8030D:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updatearticle9C88C52D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /PUT/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/PUT/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PUT..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidPUTApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PUTapiv1articlesidF7CA6A6C:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updatearticle9C88C52D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/PUT/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/PUT/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PUT..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidPUTFAFF7C42:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1articlesid5ED6697D
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - updatearticle9C88C52D
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/PUT/Resource
+  fhcampusmasterapigatewayapiv1articlesidPATCHApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PATCHapiv1articlesid216AA98C:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updatearticle9C88C52D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /PATCH/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/PATCH/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PATCH..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidPATCHApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PATCHapiv1articlesid01B193C5:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updatearticle9C88C52D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/PATCH/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/PATCH/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PATCH..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidPATCH91FD90F2:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PATCH
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1articlesid5ED6697D
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - updatearticle9C88C52D
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/PATCH/Resource
+  fhcampusmasterapigatewayapiv1articlesidDELETEApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4DELETEapiv1articlesid8BB90278:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - deletearticle3D4EE9C1
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /DELETE/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/DELETE/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.DELETE..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidDELETEApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4DELETEapiv1articlesid44240C32:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - deletearticle3D4EE9C1
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/DELETE/api/v1/articles/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/DELETE/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.DELETE..api.v1.articles.{id}
+  fhcampusmasterapigatewayapiv1articlesidDELETE317929E4:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: DELETE
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1articlesid5ED6697D
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - deletearticle3D4EE9C1
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/articles/{id}/DELETE/Resource
+  fhcampusmasterapigatewayapiv1ratings1E2D366B:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiv122AABBA4
+      PathPart: ratings
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/Resource
+  fhcampusmasterapigatewayapiv1ratingsPOSTApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4POSTapiv1ratings185F8F7E:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - createrating59FD54B9
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /POST/api/v1/ratings
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/POST/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.POST..api.v1.ratings
+  fhcampusmasterapigatewayapiv1ratingsPOSTApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4POSTapiv1ratings7FF6FD7C:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - createrating59FD54B9
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/POST/api/v1/ratings
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/POST/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.POST..api.v1.ratings
+  fhcampusmasterapigatewayapiv1ratingsPOSTC7BDD908:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: POST
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1ratings1E2D366B
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - createrating59FD54B9
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/POST/Resource
+  fhcampusmasterapigatewayapiv1ratingsGETApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1ratings82229AA2:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readallratings84B4FDEF
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /GET/api/v1/ratings
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/GET/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.ratings
+  fhcampusmasterapigatewayapiv1ratingsGETApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1ratings0BE0935A:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readallratings84B4FDEF
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/GET/api/v1/ratings
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/GET/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.ratings
+  fhcampusmasterapigatewayapiv1ratingsGET1F3EA387:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1ratings1E2D366B
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - readallratings84B4FDEF
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/GET/Resource
+  fhcampusmasterapigatewayapiv1ratingsid4A7F2C19:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiv1ratings1E2D366B
+      PathPart: "{id}"
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/Resource
+  fhcampusmasterapigatewayapiv1ratingsidarticleid533B5F1A:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiv1ratingsid4A7F2C19
+      PathPart: "{article_id}"
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/Resource
+  fhcampusmasterapigatewayapiv1ratingsidarticleidGETApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1ratingsidarticleid642FF35D:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readonerating2153943B
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /GET/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/GET/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidGETApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1ratingsidarticleid3657F5E1:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readonerating2153943B
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/GET/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/GET/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidGET2B883409:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1ratingsidarticleid533B5F1A
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - readonerating2153943B
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/GET/Resource
+  fhcampusmasterapigatewayapiv1ratingsidarticleidPUTApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PUTapiv1ratingsidarticleidABD16BAF:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updaterating9B20EA4D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /PUT/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/PUT/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PUT..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidPUTApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PUTapiv1ratingsidarticleid7A82A52D:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updaterating9B20EA4D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/PUT/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/PUT/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PUT..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidPUT3F081D37:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1ratingsidarticleid533B5F1A
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - updaterating9B20EA4D
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/PUT/Resource
+  fhcampusmasterapigatewayapiv1ratingsidarticleidPATCHApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PATCHapiv1ratingsidarticleidD067F741:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updaterating9B20EA4D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /PATCH/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/PATCH/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PATCH..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidPATCHApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PATCHapiv1ratingsidarticleidFDA05E55:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updaterating9B20EA4D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/PATCH/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/PATCH/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PATCH..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidPATCHFCF59352:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PATCH
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1ratingsidarticleid533B5F1A
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - updaterating9B20EA4D
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/PATCH/Resource
+  fhcampusmasterapigatewayapiv1ratingsidarticleidDELETEApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4DELETEapiv1ratingsidarticleidE26DDF92:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - deleterating1296CBDB
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /DELETE/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/DELETE/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.DELETE..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidDELETEApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4DELETEapiv1ratingsidarticleidD5994F2B:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - deleterating1296CBDB
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/DELETE/api/v1/ratings/{id}/{article_id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/DELETE/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.DELETE..api.v1.ratings.{id}.{article_id}
+  fhcampusmasterapigatewayapiv1ratingsidarticleidDELETEECA3152A:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: DELETE
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1ratingsidarticleid533B5F1A
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - deleterating1296CBDB
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/ratings/{id}/{article_id}/DELETE/Resource
+  fhcampusmasterapigatewayapiv1accumulatedF68F4C36:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiv122AABBA4
+      PathPart: accumulated
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/Resource
+  fhcampusmasterapigatewayapiv1accumulatedPOSTApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4POSTapiv1accumulatedD68023F8:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - createaccumulatedA3F92A60
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /POST/api/v1/accumulated
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/POST/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.POST..api.v1.accumulated
+  fhcampusmasterapigatewayapiv1accumulatedPOSTApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4POSTapiv1accumulatedF6C4A6C1:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - createaccumulatedA3F92A60
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/POST/api/v1/accumulated
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/POST/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.POST..api.v1.accumulated
+  fhcampusmasterapigatewayapiv1accumulatedPOST6B99AB1C:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: POST
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1accumulatedF68F4C36
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - createaccumulatedA3F92A60
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/POST/Resource
+  fhcampusmasterapigatewayapiv1accumulatedGETApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1accumulated7A964417:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readallaccumulatedD73FAD36
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /GET/api/v1/accumulated
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/GET/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.accumulated
+  fhcampusmasterapigatewayapiv1accumulatedGETApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1accumulated99B80009:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readallaccumulatedD73FAD36
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/GET/api/v1/accumulated
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/GET/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.accumulated
+  fhcampusmasterapigatewayapiv1accumulatedGET457D394F:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1accumulatedF68F4C36
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - readallaccumulatedD73FAD36
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/GET/Resource
+  fhcampusmasterapigatewayapiv1accumulatedid58774540:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Ref: fhcampusmasterapigatewayapiv1accumulatedF68F4C36
+      PathPart: "{id}"
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/Resource
+  fhcampusmasterapigatewayapiv1accumulatedidGETApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1accumulatedid6BFAE608:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readoneaccumulated3ACFDEC3
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /GET/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/GET/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidGETApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4GETapiv1accumulatedid17D8A0BC:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - readoneaccumulated3ACFDEC3
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/GET/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/GET/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.GET..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidGET96DE7D8F:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1accumulatedid58774540
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - readoneaccumulated3ACFDEC3
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/GET/Resource
+  fhcampusmasterapigatewayapiv1accumulatedidPUTApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PUTapiv1accumulatedidE9475164:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updateaccumulated546EE512
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /PUT/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/PUT/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PUT..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidPUTApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PUTapiv1accumulatedid4AAD5C6A:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updateaccumulated546EE512
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/PUT/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/PUT/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PUT..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidPUT25CA68E7:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1accumulatedid58774540
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - updateaccumulated546EE512
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/PUT/Resource
+  fhcampusmasterapigatewayapiv1accumulatedidPATCHApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PATCHapiv1accumulatedid3DE66FA0:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updateaccumulated546EE512
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /PATCH/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/PATCH/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PATCH..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidPATCHApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4PATCHapiv1accumulatedidA930674B:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - updateaccumulated546EE512
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/PATCH/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/PATCH/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.PATCH..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidPATCHCF57FC38:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PATCH
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1accumulatedid58774540
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - updateaccumulated546EE512
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/PATCH/Resource
+  fhcampusmasterapigatewayapiv1accumulatedidDELETEApiPermissionfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4DELETEapiv1accumulatedid2BD710CE:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - deleteaccumulatedEC02E02D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /
+            - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+            - /DELETE/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/DELETE/ApiPermission.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.DELETE..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidDELETEApiPermissionTestfhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4DELETEapiv1accumulatedidBE1541BE:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - deleteaccumulatedEC02E02D
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: fhcampusmasterapigateway93F4E273
+            - /test-invoke-stage/DELETE/api/v1/accumulated/{id}
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/DELETE/ApiPermission.Test.fhcampusmastercdkstackfhcampusmasterapigateway7E5E35E4.DELETE..api.v1.accumulated.{id}
+  fhcampusmasterapigatewayapiv1accumulatedidDELETEEB5BC1E4:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: DELETE
+      ResourceId:
+        Ref: fhcampusmasterapigatewayapiv1accumulatedid58774540
+      RestApiId:
+        Ref: fhcampusmasterapigateway93F4E273
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - deleteaccumulatedEC02E02D
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: fh-campus-master-cdk-stack/fh-campus-master-api-gateway/Default/api/v1/accumulated/{id}/DELETE/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Modules: aws-cdk=1.38.0,@aws-cdk/assets=1.38.0,@aws-cdk/aws-apigateway=1.38.0,@aws-cdk/aws-applicationautoscaling=1.38.0,@aws-cdk/aws-autoscaling-common=1.38.0,@aws-cdk/aws-cloudwatch=1.38.0,@aws-cdk/aws-dynamodb=1.38.0,@aws-cdk/aws-ec2=1.38.0,@aws-cdk/aws-events=1.38.0,@aws-cdk/aws-iam=1.38.0,@aws-cdk/aws-kms=1.38.0,@aws-cdk/aws-lambda=1.38.0,@aws-cdk/aws-logs=1.38.0,@aws-cdk/aws-s3=1.38.0,@aws-cdk/aws-s3-assets=1.38.0,@aws-cdk/aws-sqs=1.38.0,@aws-cdk/aws-ssm=1.38.0,@aws-cdk/cloud-assembly-schema=1.38.0,@aws-cdk/core=1.38.0,@aws-cdk/custom-resources=1.38.0,@aws-cdk/cx-api=1.38.0,@aws-cdk/region-info=1.38.0,jsii-runtime=node.js/v10.16.0
+    Condition: CDKMetadataAvailable
+Parameters:
+  AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3Bucket27632CE3:
+    Type: String
+    Description: S3 bucket for asset "07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40"
+  AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40S3VersionKey9CE77F40:
+    Type: String
+    Description: S3 key for asset version "07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40"
+  AssetParameters07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40ArtifactHash42B09FB7:
+    Type: String
+    Description: Artifact hash for asset "07cdb0e1ae767264ce98b43a84716904f5df5b521709e0e97f47b1f5578e2c40"
+  AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3Bucket7D8CFB7B:
+    Type: String
+    Description: S3 bucket for asset "41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e"
+  AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eS3VersionKey2AD37AA1:
+    Type: String
+    Description: S3 key for asset version "41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e"
+  AssetParameters41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970eArtifactHash9A959D4C:
+    Type: String
+    Description: Artifact hash for asset "41dabb07ebea2d31addbdf7e78b7b8cb7ee21a71c2e60f271ffdf2e0a528970e"
+  AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3BucketACE1C94D:
+    Type: String
+    Description: S3 bucket for asset "1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c"
+  AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cS3VersionKey5563FD51:
+    Type: String
+    Description: S3 key for asset version "1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c"
+  AssetParameters1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887cArtifactHash3E00BE59:
+    Type: String
+    Description: Artifact hash for asset "1fbde8b067712b6678b859c8dc93d335a9d10a13a81d20d2fafdcdbdbcad887c"
+  AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3Bucket735A80F4:
+    Type: String
+    Description: S3 bucket for asset "c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d"
+  AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dS3VersionKeyA61E2039:
+    Type: String
+    Description: S3 key for asset version "c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d"
+  AssetParametersc264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883dArtifactHash403E872A:
+    Type: String
+    Description: Artifact hash for asset "c264cecf4aa081096a14a2a768b94fd1a4c4c1eafd15e354fdc36e559919883d"
+Outputs:
+  fhcampusmasterapigatewayEndpoint7027B261:
+    Value:
+      Fn::Join:
+        - ""
+        - - https://
+          - Ref: fhcampusmasterapigateway93F4E273
+          - .execute-api.
+          - Ref: AWS::Region
+          - "."
+          - Ref: AWS::URLSuffix
+          - /
+          - Ref: fhcampusmasterapigatewayDeploymentStageprod3C8E4B66
+          - /
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+

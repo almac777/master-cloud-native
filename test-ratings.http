@@ -1,0 +1,43 @@
+GET https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/ratings
+
+###
+
+GET https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/accumulated
+Authorization: Bearer eyJraWQiOiJPYTAzYUFrbUF5aDY1ODVBa3IzM0FEakpSM2lWQmFVTkJKWURTaXFBbU0wPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3aXAwbGNiZjBjdG4xcHA2aGRlOTNycTdiMCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiZmgtY2FtcHVzLXJhdGluZy1yc1wvbWFzdGVyIiwiYXV0aF90aW1lIjoxNTk3MDY0OTg2LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuZXUtY2VudHJhbC0xLmFtYXpvbmF3cy5jb21cL2V1LWNlbnRyYWwtMV9wbEpvMlRDS1EiLCJleHAiOjE1OTcwNjg1ODYsImlhdCI6MTU5NzA2NDk4NiwidmVyc2lvbiI6MiwianRpIjoiNmE5ODE3YzktODIzZC00MjBlLTgxNzEtMGFlNzIxNWM0MmVkIiwiY2xpZW50X2lkIjoiN2lwMGxjYmYwY3RuMXBwNmhkZTkzcnE3YjAifQ.j73t6Az9e9z2WLBlJXMtZew14ymdxN42LI0P2KlWSfRoGs5YiWPOOuVaPhthy9tWh15qbQ7G8B3XcuoVH78AcvdXkz1pzmaOswtjv2bg9EKAdZ9O_Y5HYG5zGvbHfF9uOrEQ5Ghsc2foZxoDTj1YBCscJB1vDr61GcU9laASivNhzzXTxLbqggIHBGmoGOMUKIPQ-JJnH5m0LXCF3H7xzlylwTZwjWdKle7eVKKyh-ktAqOSi-d08OI5XSXJF8c87v1b7WgqNDqOKNKw6QBf95vqzaLe2fzv8t80irYM_5Gak10jixUo3jXsfkgz0bVd5IWYugfITlJsxKJsnHfAnQ
+
+###
+
+POST https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/ratings
+Content-Type: application/json
+
+{
+  "article_id": "1",
+  "rating": "5"
+}
+
+###
+
+GET https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/ratings
+
+###
+
+PUT https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/ratings/098532f7-83bd-4f95-b636-a52ffaa8952c/1
+Content-Type: application/json
+
+{
+  "rating": "4"
+}
+
+###
+
+GET https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/ratings/098532f7-83bd-4f95-b636-a52ffaa8952c/1
+
+###
+
+DELETE https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/ratings/098532f7-83bd-4f95-b636-a52ffaa8952c/1
+
+###
+
+GET https://l4o4jpfyu1.execute-api.eu-central-1.amazonaws.com/prod/api/v1/ratings
+
+###
