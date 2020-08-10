@@ -14,7 +14,9 @@ import {
 import {ARTICLE_PRIMARY_KEY, ARTICLES_DB_NAME} from '../lambda/articles/constants';
 import {RATING_PRIMARY_KEY, RATING_SORT_KEY, RATINGS_DB_NAME} from '../lambda/ratings/constants';
 import {ACCUMULATED_DB_NAME} from '../lambda/accumulated/constants';
-import {OAuthScope} from '@aws-cdk/aws-cognito';
+import {DynamoEventSource} from '@aws-cdk/aws-lambda-event-sources';
+import {StartingPosition} from '@aws-cdk/aws-lambda';
+import {BillingMode} from '@aws-cdk/aws-dynamodb';
 
 // https://github.com/aws/aws-cdk/issues/5618
 export class CognitoApiGatewayAuthorizer extends CfnAuthorizer implements IAuthorizer {
@@ -69,7 +71,6 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
         allowedOAuthFlowsUserPoolClient: true,
         generateSecret: true
     } as cognito.CfnUserPoolClientProps);
-
     userPoolClient.addDependsOn(userPoolResourceServer);
 
     userPool.addDomain('cognito-domain', {
@@ -146,13 +147,6 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
         tracing: lambda.Tracing.ACTIVE
     });
 
-    const createAccumulatedHandler = new lambda.Function(stack, 'create-accumulated', {
-        runtime: lambda.Runtime.NODEJS_12_X,
-        handler: 'create-accumulated.handler',
-        code: lambda.Code.fromAsset('./lambda/accumulated'),
-        tracing: lambda.Tracing.ACTIVE
-    });
-
     // --------------------- update ---------------------
 
     const updateArticleHandler = new lambda.Function(stack, 'update-article', {
@@ -166,13 +160,6 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
         runtime: lambda.Runtime.NODEJS_12_X,
         handler: 'update-rating.handler',
         code: lambda.Code.fromAsset('./lambda/ratings'),
-        tracing: lambda.Tracing.ACTIVE
-    });
-
-    const updateAccumulatedHandler = new lambda.Function(stack, 'update-accumulated', {
-        runtime: lambda.Runtime.NODEJS_12_X,
-        handler: 'update-accumulated.handler',
-        code: lambda.Code.fromAsset('./lambda/accumulated'),
         tracing: lambda.Tracing.ACTIVE
     });
 
@@ -192,14 +179,6 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
         tracing: lambda.Tracing.ACTIVE
     });
 
-    const deleteAccumulatedHandler = new lambda.Function(stack, 'delete-accumulated', {
-        runtime: lambda.Runtime.NODEJS_12_X,
-        handler: 'delete-accumulated.handler',
-        code: lambda.Code.fromAsset('./lambda/accumulated'),
-        tracing: lambda.Tracing.ACTIVE
-    });
-
-
     // lambdas finished
 
     const articlesDb = new dynamodb.Table(stack, ARTICLES_DB_NAME, {
@@ -207,7 +186,8 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
         partitionKey: {
             name: ARTICLE_PRIMARY_KEY, type: dynamodb.AttributeType.STRING
         },
-        stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
+        stream: dynamodb.StreamViewType.NEW_IMAGE,
+        billingMode: BillingMode.PAY_PER_REQUEST,
         removalPolicy: RemovalPolicy.DESTROY
     });
 
@@ -219,8 +199,9 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
         sortKey: {
             name: RATING_SORT_KEY, type: dynamodb.AttributeType.STRING
         },
-        stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
-        removalPolicy: RemovalPolicy.DESTROY
+        stream: dynamodb.StreamViewType.NEW_IMAGE,
+        billingMode: BillingMode.PAY_PER_REQUEST,
+        removalPolicy: RemovalPolicy.DESTROY,
     });
 
     const accumulatedDb = new dynamodb.Table(stack, ACCUMULATED_DB_NAME, {
@@ -228,7 +209,8 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
         partitionKey: {
             name: ARTICLE_PRIMARY_KEY, type: dynamodb.AttributeType.STRING
         },
-        stream: dynamodb.StreamViewType.NEW_AND_OLD_IMAGES,
+        stream: dynamodb.StreamViewType.NEW_IMAGE,
+        billingMode: BillingMode.PAY_PER_REQUEST,
         removalPolicy: RemovalPolicy.DESTROY
     });
 
@@ -243,15 +225,12 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
 
     articlesDb.grantWriteData(createArticleHandler);
     ratingsDb.grantWriteData(createRatingHandler);
-    accumulatedDb.grantWriteData(createAccumulatedHandler);
 
     articlesDb.grantReadWriteData(updateArticleHandler);
     ratingsDb.grantReadWriteData(updateRatingHandler);
-    accumulatedDb.grantReadWriteData(updateAccumulatedHandler);
 
     articlesDb.grantReadWriteData(deleteArticleHandler);
     ratingsDb.grantReadWriteData(deleteRatingHandler);
-    accumulatedDb.grantReadWriteData(deleteAccumulatedHandler);
 
     // create a gateway
     const apiGateway = new apigateway.LambdaRestApi(stack, 'fh-campus-master-api-gateway', {
@@ -288,7 +267,6 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
     // create methods
     articlesV1.addMethod('POST', new LambdaIntegration(createArticleHandler), methodOption);
     ratingsV1.addMethod('POST', new LambdaIntegration(createRatingHandler), methodOption);
-    accumulatedV1.addMethod('POST', new LambdaIntegration(createAccumulatedHandler), methodOption)
 
     // read methods
     articlesV1.addMethod('GET', new LambdaIntegration(readAllArticlesHandler), methodOption);
@@ -308,15 +286,26 @@ export const createStack = async (scope: cdk.Construct, id: string, props?: cdk.
     // update methods
     oneArticle.addMethod('PUT', new LambdaIntegration(updateArticleHandler), methodOption);
     oneRating.addMethod('PUT', new LambdaIntegration(updateRatingHandler), methodOption);
-    oneAccumulated.addMethod('PUT', new LambdaIntegration(updateAccumulatedHandler), methodOption);
 
     oneArticle.addMethod('PATCH', new LambdaIntegration(updateArticleHandler), methodOption);
     oneRating.addMethod('PATCH', new LambdaIntegration(updateRatingHandler), methodOption);
-    oneAccumulated.addMethod('PATCH', new LambdaIntegration(updateAccumulatedHandler), methodOption);
 
     // delete methods
     oneArticle.addMethod('DELETE', new LambdaIntegration(deleteArticleHandler), methodOption);
     oneRating.addMethod('DELETE', new LambdaIntegration(deleteRatingHandler), methodOption);
-    oneAccumulated.addMethod('DELETE', new LambdaIntegration(deleteAccumulatedHandler), methodOption);
 
+    // Trigger for accumulation.
+    const lambdaTrigger = new lambda.Function(stack, 'ratings-trigger', {
+        runtime: lambda.Runtime.NODEJS_12_X,
+        handler: 'lambda-trigger.handler',
+        code: lambda.Code.fromAsset('./lambda/accumulated'),
+        tracing: lambda.Tracing.ACTIVE
+    });
+
+    ratingsDb.grantReadData(lambdaTrigger);
+    accumulatedDb.grantReadWriteData(lambdaTrigger);
+
+    lambdaTrigger.addEventSource(new DynamoEventSource(ratingsDb, {
+        startingPosition: StartingPosition.TRIM_HORIZON
+    }));
 }
